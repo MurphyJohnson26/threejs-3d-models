@@ -20,17 +20,32 @@ const params = {
 const assets = [
     'Samba Dancing',
     'morph_test',
-    'salsa Dancing',
-    'Hip-Hop Dancing',
-    'Rock Dancing',
-    'Pop Dancing',
-    'Classic Dancing',
+    'Silly Dancing',
+    'Hip Hop Dancing',
+    'Dancing Twerk',
+    'Rumba Dancing',
+    'Stupid Dancing',
 ];
 
 
 init();
 
 function init() {
+    // Agregar navegación con teclado
+window.addEventListener('keydown', (event) => {
+    const currentIndex = assets.indexOf(params.asset);
+    
+    if (event.keyCode === 37) { // Flecha izquierda
+        const newIndex = (currentIndex - 1 + assets.length) % assets.length;
+        params.asset = assets[newIndex];
+        loadAsset(params.asset);
+    }
+    else if (event.keyCode === 39) { // Flecha derecha
+        const newIndex = (currentIndex + 1) % assets.length;
+        params.asset = assets[newIndex];
+        loadAsset(params.asset);
+    }
+});
 
     const container = document.createElement('div');
     document.body.appendChild(container);
@@ -40,7 +55,7 @@ function init() {
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xa0a0a0);
-    scene.fog = new THREE.Fog(0xa0a0a0, 200, 1000);
+   // scene.fog = new THREE.Fog(0xa0a0a0, 200, 1000);
 
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 5);
     hemiLight.position.set(0, 200, 0);
@@ -101,7 +116,7 @@ function init() {
 
 function loadAsset(asset) {
 
-    loader.load('./models/fbx/' + asset + '.fbx', function (group) {
+    loader.load('../models/fbx/' + asset + '.fbx', function (group) {
             
         if (object) {
 
